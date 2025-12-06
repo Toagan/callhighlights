@@ -203,12 +203,13 @@ function displayPrices(prices) {
         card.className = 'price-card';
         
         const changeColor = priceData.change24h >= 0 ? '#4ade80' : '#f87171';
+        const changeBg = priceData.change24h >= 0 ? 'rgba(74, 222, 128, 0.15)' : 'rgba(248, 113, 113, 0.15)';
         const changeSymbol = priceData.change24h >= 0 ? '+' : '';
         
         card.innerHTML = `
             <div class="price-symbol">${priceData.symbol}</div>
             <div class="price-value">$${priceData.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            <div class="price-change" style="color: ${changeColor}">
+            <div class="price-change" style="color: ${changeColor}; background: ${changeBg};">
                 ${changeSymbol}${priceData.change24h.toFixed(2)}% (24h)
             </div>
         `;

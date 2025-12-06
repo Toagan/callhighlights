@@ -6,7 +6,8 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background-attachment: fixed;
     color: #e0e0e0;
     line-height: 1.6;
     padding: 20px;
@@ -23,17 +24,23 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
+    padding: 25px 30px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #a0a0ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0;
+    letter-spacing: -0.5px;
 }
 
 .header-controls {
@@ -46,21 +53,42 @@ h1 {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #ffffff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 14px;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.refresh-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.refresh-btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .refresh-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
 }
 
 .refresh-btn:active {
-    transform: translateY(0);
+    transform: translateY(-1px) scale(1.02);
 }
 
 .last-update {
@@ -70,19 +98,31 @@ h1 {
 
 section {
     margin-bottom: 30px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 700;
     color: #ffffff;
     margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+    padding-bottom: 12px;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%) 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Prices Grid */
@@ -93,16 +133,34 @@ h2 {
 }
 
 .price-card {
-    background: rgba(255, 255, 255, 0.08);
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.price-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.price-card:hover::before {
+    left: 100%;
 }
 
 .price-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    border-color: rgba(102, 126, 234, 0.5);
 }
 
 .price-card.loading {
@@ -111,22 +169,31 @@ h2 {
 }
 
 .price-symbol {
-    font-size: 14px;
-    color: #a0a0a0;
+    font-size: 13px;
+    color: #b0b0ff;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .price-value {
-    font-size: 24px;
-    font-weight: 700;
-    color: #4ade80;
-    margin-bottom: 5px;
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    font-family: 'Courier New', monospace;
 }
 
 .price-change {
-    font-size: 12px;
-    color: #a0a0a0;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: inline-block;
 }
 
 /* Filters */
@@ -150,26 +217,34 @@ h2 {
 
 .filter-group input,
 .filter-group select {
-    padding: 8px 12px;
+    padding: 10px 14px;
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
     color: #ffffff;
     font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 .filter-group input:focus,
 .filter-group select:focus {
     outline: none;
     border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
 }
 
 /* Opportunities Table */
 .opportunities-header {
     margin-bottom: 15px;
-    font-size: 14px;
-    color: #a0a0a0;
+    font-size: 15px;
+    color: #b0b0ff;
+    font-weight: 600;
+    padding: 10px 15px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 8px;
+    display: inline-block;
 }
 
 .table-container {
@@ -179,29 +254,31 @@ h2 {
 table {
     width: 100%;
     border-collapse: collapse;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 thead {
-    background: rgba(102, 126, 234, 0.2);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
 }
 
 th {
-    padding: 12px;
+    padding: 16px 14px;
     text-align: left;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 td {
-    padding: 12px;
+    padding: 16px 14px;
     font-size: 14px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 tbody tr {
@@ -209,7 +286,9 @@ tbody tr {
 }
 
 tbody tr:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(102, 126, 234, 0.15);
+    transform: scale(1.01);
+    transition: all 0.2s ease;
 }
 
 .loading-row {
@@ -235,26 +314,44 @@ tbody tr:hover {
 .profit-positive {
     color: #4ade80;
     font-weight: 700;
+    text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
 }
 
 .profit-negative {
     color: #f87171;
+    font-weight: 600;
 }
 
 .profit-neutral {
     color: #a0a0a0;
+    font-weight: 500;
 }
 
 .risk-low {
     color: #4ade80;
+    font-weight: 600;
+    padding: 4px 8px;
+    background: rgba(74, 222, 128, 0.1);
+    border-radius: 6px;
+    display: inline-block;
 }
 
 .risk-medium {
     color: #fbbf24;
+    font-weight: 600;
+    padding: 4px 8px;
+    background: rgba(251, 191, 36, 0.1);
+    border-radius: 6px;
+    display: inline-block;
 }
 
 .risk-high {
     color: #f87171;
+    font-weight: 600;
+    padding: 4px 8px;
+    background: rgba(248, 113, 113, 0.1);
+    border-radius: 6px;
+    display: inline-block;
 }
 
 /* Spinner */
@@ -276,17 +373,19 @@ tbody tr:hover {
 /* Status Message */
 .status-message {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    background: rgba(102, 126, 234, 0.9);
+    bottom: 30px;
+    right: 30px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
     color: #ffffff;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 14px;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
     display: none;
     z-index: 1000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
 }
 
 .status-message.show {
@@ -295,7 +394,8 @@ tbody tr:hover {
 }
 
 .status-message.error {
-    background: rgba(248, 113, 113, 0.9);
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.95) 0%, rgba(239, 68, 68, 0.95) 100%);
+    box-shadow: 0 8px 25px rgba(248, 113, 113, 0.4);
 }
 
 @keyframes slideIn {
